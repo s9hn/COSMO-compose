@@ -22,8 +22,12 @@ val Typography = Typography(
         fontFamily = PretendardMedium,
         fontSize = 24.sp,
     ),
-    headlineSmall = TextStyle(
+    headlineLarge = TextStyle(
         fontFamily = PretendardSemibold,
+        fontSize = 20.sp,
+    ),
+    headlineMedium = TextStyle(
+        fontFamily = PretendardMedium,
         fontSize = 20.sp,
     ),
     titleLarge = TextStyle(

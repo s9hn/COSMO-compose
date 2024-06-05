@@ -10,7 +10,8 @@
 
     <color name="primary.10">#FAFAFA</color>
     <color name="primary.30">#F0F0F2</color>
-    <color name="primary.50">#9E9FA8</color>
-    <color name="primary.100">#2D2E43</color>
+    <color name="primary.50">#E9E9E9</color>
+    <color name="primary.70">#9E9FA8</color>
+    <color name="primary.200">#2D2E43</color>
     <color name="secondary.100">#A7ABFF</color>
 </resources>
