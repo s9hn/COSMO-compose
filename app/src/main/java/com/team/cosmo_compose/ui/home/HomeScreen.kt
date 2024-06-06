@@ -114,11 +114,11 @@ fun HomeScreen() {
                         .size(100.dp)
                         .border(
                             width = 1.dp,
-                            color = colorResource(id = R.color.primary_50),
+                            color = colorResource(id = R.color.gray_70),
                             shape = RoundedCornerShape(10.dp),
                         )
                         .background(
-                            color = colorResource(id = R.color.primary_30),
+                            color = colorResource(id = R.color.gray_20),
                             shape = RoundedCornerShape(10.dp),
                         )
                 ) {
@@ -144,7 +144,7 @@ fun TodayStudyBoard() {
             .fillMaxWidth()
             .padding(horizontal = 20.dp)
             .background(
-                color = colorResource(R.color.primary_30),
+                color = colorResource(R.color.gray_50),
                 shape = RoundedCornerShape(size = 15.dp),
             ),
     ) {
@@ -162,7 +162,7 @@ fun TodayStudyBoard() {
             onClick = { /*TODO*/ },
             shape = RoundedCornerShape(size = 30.dp),
             contentPadding = PaddingValues(),
-            colors = ButtonDefaults.buttonColors(containerColor = colorResource(id = R.color.primary_200)),
+            colors = ButtonDefaults.buttonColors(containerColor = colorResource(id = R.color.primary_100)),
             modifier = Modifier
                 .fillMaxWidth()
                 .defaultMinSize(minHeight = 1.dp)

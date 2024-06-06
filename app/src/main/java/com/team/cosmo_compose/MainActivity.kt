@@ -31,6 +31,11 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
+fun QuizScreen() {
+
+}
+
+@Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     Text(
         text = "Hello $name!",
@@ -42,6 +47,6 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 @Composable
 fun GreetingPreview() {
     COSMOcomposeTheme {
-        HomeScreen()
+        QuizScreen()
     }
 }

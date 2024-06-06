@@ -39,6 +39,10 @@ val Typography = Typography(
         fontSize = 16.sp,
     ),
     bodyLarge = TextStyle(
+        fontFamily = PretendardMedium,
+        fontSize = 14.sp,
+    ),
+    bodyMedium = TextStyle(
         fontFamily = PretendardRegular,
         fontSize = 14.sp,
     ),
