@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">COSMO-compose</string>
+    <string name="home_ic_logo">ic_logo</string>
+    <string name="home_ic_profile">ic_profile</string>
+    <string name="home_isLearned_true">오늘 학습을 완료했어요 !</string>
+    <string name="home_isLearned_false">아직 학습을 시작하지 않았어요.</string>
+    <string name="home_ic_study">ic_study</string>
+    <string name="home_ic_today_learn_button">오늘 학습하기</string>
+    <string name="home_subject_quiz_title">과목별 학습하기</string>
+    <string name="home_ic_subject">subjectIcon</string>
 </resources>

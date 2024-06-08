@@ -8,7 +8,7 @@ import com.team.cosmo_compose.ui.home.navigation.HomeRoute.ROUTE
 fun NavGraphBuilder.homeScreen(
 ) {
     composable(route = ROUTE) {
-        HomeScreen()
+        HomeScreen({})
     }
 }
 
