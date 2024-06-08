@@ -4,49 +4,27 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.tooling.preview.Preview
-import com.team.cosmo_compose.ui.home.HomeScreen
+import androidx.navigation.compose.rememberNavController
+import com.team.cosmo_compose.ui.AppNavHost
 import com.team.cosmo_compose.ui.theme.COSMOcomposeTheme
 
 class MainActivity : ComponentActivity() {
+    @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             COSMOcomposeTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
+                Scaffold(
+                    containerColor = colorResource(id = R.color.white),
                     modifier = Modifier.fillMaxSize(),
-                    color = colorResource(id = R.color.white)
                 ) {
-                    HomeScreen()
+                    AppNavHost(navController = rememberNavController())
                 }
             }
         }
-    }
-}
-
-@Composable
-fun QuizScreen() {
-
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    COSMOcomposeTheme {
-        QuizScreen()
     }
 }
