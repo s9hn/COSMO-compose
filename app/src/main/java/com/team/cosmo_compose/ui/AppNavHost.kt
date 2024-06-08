@@ -6,6 +6,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.team.cosmo_compose.ui.home.navigation.HomeRoute
 import com.team.cosmo_compose.ui.home.navigation.homeScreen
+import com.team.cosmo_compose.ui.quiz.navigation.navigateToQuiz
+import com.team.cosmo_compose.ui.quiz.navigation.quizScreen
 
 @Composable
 fun AppNavHost(
@@ -18,6 +20,7 @@ fun AppNavHost(
         navController = navController,
         startDestination = startDestination,
     ) {
-        homeScreen()
+        homeScreen(onQuizClick = navController::navigateToQuiz)
+        quizScreen(onBackClick = navController::popBackStack)
     }
 }

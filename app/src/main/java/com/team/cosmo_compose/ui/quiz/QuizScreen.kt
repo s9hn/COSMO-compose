@@ -2,6 +2,7 @@ package com.team.cosmo_compose.ui.quiz
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -22,104 +23,145 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.team.cosmo_compose.R
+import com.team.cosmo_compose.ui.quiz.model.Fixture
+import com.team.cosmo_compose.ui.quiz.model.QuizModel
+import com.team.cosmo_compose.ui.theme.COSMOcomposeTheme
 import com.team.cosmo_compose.ui.theme.Typography
 
 @Composable
-fun QuizScreen() {
+fun QuizScreen(
+    onBackClick: () -> Unit,
+) {
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(color = colorResource(id = R.color.white)),
+        modifier = Modifier.fillMaxSize(),
     ) {
-        Row(
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.fillMaxWidth(),
-        ) {
-            Icon(
-                painter = painterResource(id = R.drawable.ic_back),
-                contentDescription = "ic_back",
-                modifier = Modifier.padding(
-                    start = 8.dp,
-                    top = 4.dp,
-                ),
-            )
-
-            Icon(
-                painter = painterResource(id = R.drawable.ic_save),
-                contentDescription = "ic_save",
-                modifier = Modifier.padding(all = 20.dp),
-            )
-        }
+        QuizTopAppBar(
+            onBackClick = onBackClick,
+            onSaveClick = {},
+        )
         Spacer(modifier = Modifier.size(8.dp))
-        Text(
-            text = "문제 1",
-            color = colorResource(id = R.color.black),
-            style = Typography.headlineLarge,
-            modifier = Modifier.padding(start = 20.dp),
-        )
-        Spacer(modifier = Modifier.size(12.dp))
-        QuizBoard()
+        QuizQuestion(quizModel = Fixture)
         Spacer(modifier = Modifier.size(36.dp))
-        Text(
-            text = "답변",
-            color = colorResource(id = R.color.black),
-            style = Typography.headlineLarge,
-            modifier = Modifier.padding(start = 20.dp),
-        )
-        Spacer(modifier = Modifier.size(12.dp))
-        MultipleChoiceQuestion()
+        QuizAnswer(quizModel = Fixture)
         Spacer(modifier = Modifier.weight(1f))
-        Row(
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 20.dp),
-        ) {
-            Button(
-                onClick = { /*TODO*/ },
-                shape = RoundedCornerShape(size = 30.dp),
-                contentPadding = PaddingValues(),
-                colors = ButtonDefaults.buttonColors(containerColor = colorResource(id = R.color.primary_100)),
-            ) {
-                Text(
-                    text = "답변 제출하기",
-                    color = colorResource(id = R.color.white),
-                    style = Typography.titleLarge,
-                    modifier = Modifier.padding(
-                        horizontal = 84.dp,
-                        vertical = 18.dp,
-                    )
-                )
-            }
-
-            Button(
-                onClick = { /*TODO*/ },
-                shape = RoundedCornerShape(size = 56.dp),
-                contentPadding = PaddingValues(),
-                colors = ButtonDefaults.buttonColors(containerColor = colorResource(id = R.color.secondary_100)),
-            ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_ai_bot),
-                    contentDescription = "ic_ai_bot",
-                    modifier = Modifier.padding(all = 16.dp),
-                )
-            }
-        }
+        QuizBottomAppBar(
+            onProgressQuizClick = {},
+            onHelperClick = {},
+        )
         Spacer(modifier = Modifier.size(20.dp))
     }
 }
 
 @Composable
-fun MultipleChoiceQuestion() {
+private fun QuizTopAppBar(
+    onBackClick: () -> Unit,
+    onSaveClick: () -> Unit,
+) {
+    Row(
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier.fillMaxWidth(),
+    ) {
+        Icon(
+            painter = painterResource(id = R.drawable.ic_back),
+            contentDescription = stringResource(R.string.quiz_ic_back),
+            modifier = Modifier
+                .padding(
+                    start = 8.dp,
+                    top = 4.dp,
+                )
+                .clickable(onClick = onBackClick),
+        )
+        Icon(
+            painter = painterResource(id = R.drawable.ic_save),
+            contentDescription = stringResource(R.string.quiz_ic_save),
+            modifier = Modifier
+                .padding(all = 20.dp)
+                .clickable(onClick = onSaveClick),
+        )
+    }
+}
+
+@Composable
+private fun QuizQuestion(
+    quizModel: QuizModel,
+) {
+    Text(
+        text = "문제 1",
+        color = colorResource(id = R.color.black),
+        style = Typography.headlineLarge,
+        modifier = Modifier.padding(start = 20.dp),
+    )
+    Spacer(modifier = Modifier.size(12.dp))
+    QuizQuestionBoard(quizModel = quizModel)
+}
+
+@Composable
+private fun QuizQuestionBoard(
+    quizModel: QuizModel,
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 20.dp)
+            .background(
+                color = colorResource(R.color.gray_50),
+                shape = RoundedCornerShape(size = 15.dp),
+            ),
+    ) {
+        Text(
+            text = quizModel.getQuestionInfo(),
+            color = colorResource(id = R.color.gray_200),
+            style = Typography.labelMedium,
+            modifier = Modifier.padding(
+                start = 20.dp,
+                end = 20.dp,
+                top = 20.dp,
+            ),
+        )
+        Text(
+            text = quizModel.question,
+            color = colorResource(id = R.color.black),
+            style = Typography.titleLarge,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(
+                    start = 20.dp,
+                    end = 20.dp,
+                    top = 12.dp,
+                    bottom = 36.dp,
+                ),
+        )
+    }
+}
+
+@Composable
+private fun QuizAnswer(
+    quizModel: QuizModel,
+) {
+    Text(
+        text = stringResource(R.string.quiz_answer_title),
+        color = colorResource(id = R.color.black),
+        style = Typography.headlineLarge,
+        modifier = Modifier.padding(start = 20.dp),
+    )
+    Spacer(modifier = Modifier.size(12.dp))
+    MultipleChoiceQuestion(quizModel = quizModel)
+}
+
+@Composable
+fun MultipleChoiceQuestion(
+    quizModel: QuizModel,
+) {
     LazyColumn(
         verticalArrangement = Arrangement.spacedBy(12.dp),
         modifier = Modifier.padding(horizontal = 20.dp),
     ) {
-        items(4) {
+        items(quizModel.choices.size) { index ->
             Column(
                 horizontalAlignment = Alignment.Start,
                 verticalArrangement = Arrangement.Center,
@@ -136,8 +178,8 @@ fun MultipleChoiceQuestion() {
                     ),
             ) {
                 Text(
-                    text = "운영체제가 강제로 프로세스를 중단시키고 다른 프로세스에 CPU를 할당함",
-                    modifier = Modifier.padding(all = 20.dp)
+                    text = quizModel.choices[index],
+                    modifier = Modifier.padding(all = 20.dp),
                 )
             }
         }
@@ -145,38 +187,52 @@ fun MultipleChoiceQuestion() {
 }
 
 @Composable
-fun QuizBoard() {
-    Column(
+private fun QuizBottomAppBar(
+    onProgressQuizClick: () -> Unit,
+    onHelperClick: () -> Unit,
+) {
+    Row(
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 20.dp)
-            .background(
-                color = colorResource(R.color.gray_50),
-                shape = RoundedCornerShape(size = 15.dp),
-            ),
+            .padding(horizontal = 20.dp),
     ) {
-        Text(
-            text = "오늘 학습하기 · 운영체제 · 객관식 ",
-            color = colorResource(id = R.color.gray_200),
-            style = Typography.labelMedium,
-            modifier = Modifier.padding(
-                start = 20.dp,
-                end = 20.dp,
-                top = 20.dp,
+        Button(
+            onClick = onProgressQuizClick,
+            shape = RoundedCornerShape(size = 30.dp),
+            contentPadding = PaddingValues(),
+            colors = ButtonDefaults.buttonColors(containerColor = colorResource(id = R.color.primary_100)),
+        ) {
+            Text(
+                text = stringResource(R.string.quiz_progress_quiz_button),
+                color = colorResource(id = R.color.white),
+                style = Typography.titleLarge,
+                modifier = Modifier.padding(
+                    horizontal = 84.dp,
+                    vertical = 18.dp,
+                ),
             )
-        )
-        Text(
-            text = "Q. 다음 중 운영체제에서 메모리 단편화(Fragmentation)를 방지하는 기법은?",
-            color = colorResource(id = R.color.black),
-            style = Typography.titleLarge,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(
-                    start = 20.dp,
-                    end = 20.dp,
-                    top = 12.dp,
-                    bottom = 36.dp,
-                )
-        )
+        }
+        Button(
+            onClick = onHelperClick,
+            shape = RoundedCornerShape(size = 56.dp),
+            contentPadding = PaddingValues(),
+            colors = ButtonDefaults.buttonColors(containerColor = colorResource(id = R.color.secondary_100)),
+        ) {
+            Icon(
+                painter = painterResource(id = R.drawable.ic_ai_bot),
+                contentDescription = stringResource(R.string.quiz_ic_ai_bot),
+                modifier = Modifier.padding(all = 16.dp),
+            )
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun QuizScreenPreview() {
+    COSMOcomposeTheme {
+        QuizScreen({})
     }
 }
