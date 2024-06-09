@@ -1,5 +1,6 @@
 package com.team.cosmo_compose.ui.home
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -10,19 +11,32 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FabPosition
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemDefaults
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -46,7 +60,96 @@ fun HomeScreen(
             onQuizClick = onQuizClick,
         )
         QuizForSubject()
+        Spacer(modifier = Modifier.weight(1f))
+        HomeBottomAppBar()
     }
+}
+
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "ResourceAsColor")
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun HomeBottomAppBar() {
+    Scaffold(
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = { /*TODO*/ },
+                shape = CircleShape,
+                containerColor = colorResource(id = R.color.secondary_100),
+                modifier = Modifier.offset(y = 44.dp),
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_ai_bot),
+                    contentDescription = stringResource(R.string.quiz_ic_ai_bot),
+                    modifier = Modifier.padding(all = 16.dp),
+                    tint = colorResource(id = R.color.white),
+                )
+            }
+        },
+        floatingActionButtonPosition = FabPosition.Center,
+        bottomBar = {
+            BottomAppBar(
+                containerColor = colorResource(id = R.color.white),
+                modifier = Modifier
+                    .navigationBarsPadding()
+                    .drawBehind {
+                        drawRect(
+                            color = Color(R.color.primary_100),
+                            size = Size(size.width, 1f),
+                        )
+                    },
+            ) {
+                NavigationBarItem(
+                    selected = true,
+                    onClick = { /*TODO*/ },
+                    icon = {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_home),
+                            contentDescription = stringResource(R.string.home_ic_home),
+                        )
+                    },
+                    label = {
+                        Text(
+                            text = stringResource(R.string.home_label_home),
+                            style = Typography.labelMedium,
+                        )
+                    },
+                    colors = NavigationBarItemDefaults.colors(
+                        selectedIconColor = colorResource(id = R.color.black),
+                        selectedTextColor = colorResource(id = R.color.black),
+                        indicatorColor = colorResource(id = R.color.white),
+                        unselectedTextColor = colorResource(id = R.color.gray_100),
+                        unselectedIconColor = colorResource(id = R.color.gray_100),
+                    ),
+                    modifier = Modifier.padding(vertical = 3.dp),
+                )
+                Spacer(modifier = Modifier.size(120.dp))
+                NavigationBarItem(
+                    selected = false,
+                    onClick = { /*TODO*/ },
+                    icon = {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_folder),
+                            contentDescription = stringResource(R.string.home_ic_folder),
+                        )
+                    },
+                    label = {
+                        Text(
+                            text = stringResource(R.string.home_label_folder),
+                            style = Typography.labelMedium,
+                        )
+                    },
+                    colors = NavigationBarItemDefaults.colors(
+                        selectedIconColor = colorResource(id = R.color.black),
+                        selectedTextColor = colorResource(id = R.color.black),
+                        indicatorColor = colorResource(id = R.color.white),
+                        unselectedTextColor = colorResource(id = R.color.gray_100),
+                        unselectedIconColor = colorResource(id = R.color.gray_100),
+                    ),
+                    modifier = Modifier.padding(vertical = 3.dp),
+                )
+            }
+        },
+    ) {}
 }
 
 @Composable

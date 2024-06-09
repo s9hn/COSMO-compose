@@ -17,4 +17,8 @@
     <string name="quiz_answer_title">답변</string>
     <string name="quiz_progress_quiz_button">답변 제출하기</string>
     <string name="quiz_ic_ai_bot">ic_ai_bot</string>
+    <string name="home_ic_home">ic_home</string>
+    <string name="home_label_home">홈</string>
+    <string name="home_label_folder">보관함</string>
+    <string name="home_ic_folder">ic_folder</string>
 </resources>
