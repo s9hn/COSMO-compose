@@ -20,6 +20,10 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.ModalBottomSheetLayout
+import androidx.compose.material.ModalBottomSheetValue
+import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -32,6 +36,12 @@ import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
@@ -43,36 +53,67 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.team.cosmo_compose.R
+import com.team.cosmo_compose.ui.chat.ChatBotModalBottomSheetContent
 import com.team.cosmo_compose.ui.home.model.subjects
 import com.team.cosmo_compose.ui.theme.COSMOcomposeTheme
 import com.team.cosmo_compose.ui.theme.Typography
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun HomeScreen(
     onQuizClick: () -> Unit,
 ) {
-    Column(
-        modifier = Modifier.fillMaxSize(),
-    ) {
-        HomeTopAppBar()
-        TodayStudyBoard(
-            isLearned = true,
-            onQuizClick = onQuizClick,
-        )
-        QuizForSubject()
-        Spacer(modifier = Modifier.weight(1f))
-        HomeBottomAppBar()
+    val bottomSheetState = rememberModalBottomSheetState(
+        initialValue = ModalBottomSheetValue.HalfExpanded,
+    )
+    var state by remember { mutableStateOf(false) }
+    var selectedTabIndex by remember { mutableIntStateOf(0) }
+
+    when (state) {
+        true -> LaunchedEffect(Unit) { bottomSheetState.show() }
+        false -> LaunchedEffect(Unit) { bottomSheetState.hide() }
     }
+
+    ModalBottomSheetLayout(
+        sheetContent = {
+            ChatBotModalBottomSheetContent(
+                selectedTabIndex = selectedTabIndex,
+                onTabClick = { selectedTabIndex = it },
+            )
+        },
+        sheetBackgroundColor = colorResource(id = R.color.gray_50),
+        sheetShape = RoundedCornerShape(
+            topStart = 20.dp,
+            topEnd = 20.dp,
+        ),
+        sheetState = bottomSheetState,
+        content = {
+            Column(
+                modifier = Modifier.fillMaxSize(),
+            ) {
+                HomeTopAppBar()
+                TodayStudyBoard(
+                    isLearned = true,
+                    onQuizClick = onQuizClick,
+                )
+                QuizForSubject()
+                Spacer(modifier = Modifier.weight(1f))
+                HomeBottomAppBar(onChatBotClick = { state = !state }) // 옵저빙할것
+            }
+        }
+    )
 }
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "ResourceAsColor")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun HomeBottomAppBar() {
+private fun HomeBottomAppBar(
+    onChatBotClick: () -> Unit,
+) {
     Scaffold(
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { /*TODO*/ },
+                onClick = onChatBotClick,
                 shape = CircleShape,
                 containerColor = colorResource(id = R.color.secondary_100),
                 modifier = Modifier.offset(y = 44.dp),

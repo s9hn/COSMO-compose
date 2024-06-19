@@ -21,5 +21,6 @@
     <color name="gray.100">#9E9FA8</color>
     <color name="gray.200">#939393</color>
     <color name="gray.300">#4A4A4A</color>
+    <color name="black.transparent.60">#99111118</color>
     <color name="black">#111118</color>
 </resources>

@@ -21,4 +21,6 @@
     <string name="home_label_home">홈</string>
     <string name="home_label_folder">보관함</string>
     <string name="home_ic_folder">ic_folder</string>
+    <string name="chat_bot_category_gpt">Chat GPT</string>
+    <string name="chat_bot_category_claude">Claude</string>
 </resources>
