@@ -20,6 +20,7 @@ captures/
 output.json
 
 # IntelliJ
+.DS_Store
 *.iml
 .idea/
 misc.xml
@@ -114,7 +115,6 @@ proguard/
 # google-services.json
 
 # Android Patch
-.DS_Store
 
 # External native build folder generated in Android Studio 2.2 and later
 .externalNativeBuild
