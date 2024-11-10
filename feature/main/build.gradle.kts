@@ -10,6 +10,8 @@ android {
 
 dependencies {
     implementation(projects.feature.home)
+    implementation(projects.feature.solving)
+    implementation(projects.domain.subject)
     implementation(projects.core.designsystem)
 
     // android
