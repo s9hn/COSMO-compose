@@ -16,17 +16,18 @@ import kw.team.home.component.HomeDashboard
 import kw.team.home.component.HomeSubjectsGrid
 import kw.team.home.component.HomeTopBar
 import kw.team.home.model.SubjectUiModel
+import kw.team.home.navigation.HomeNavigation
 import kw.team.subject.model.Subject
 
 @Composable
-internal fun HomeScreen() {
+internal fun HomeScreen(homeNavigation: HomeNavigation) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier.padding(horizontal = 20.dp)
     ) {
         HomeTopBar()
         HomeDashboard(
-            onStudyButtonClick = {},
+            onStudyButtonClick = homeNavigation::navigateToSolvingForToday,
         )
         Spacer(modifier = Modifier.height(height = 48.dp))
         Text(
@@ -36,12 +37,18 @@ internal fun HomeScreen() {
             modifier = Modifier.align(alignment = Alignment.Start),
         )
         Spacer(modifier = Modifier.height(height = 16.dp))
-        HomeSubjectsGrid(subjects = Subject.entries.map { SubjectUiModel(it) })
+        HomeSubjectsGrid(
+            subjects = Subject.entries.map { SubjectUiModel(it) },
+            onClickSubject = homeNavigation::navigateToSolvingBySubject
+        )
     }
 }
 
 @Preview(showBackground = true)
 @Composable
 private fun HomeScreenPreview() {
-    HomeScreen()
+    HomeScreen(object : HomeNavigation {
+        override fun navigateToSolvingForToday() {}
+        override fun navigateToSolvingBySubject(subject: Subject) {}
+    })
 }
