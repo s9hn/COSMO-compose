@@ -23,7 +23,7 @@ fun CosmoAiChatButton(
     modifier: Modifier = Modifier,
 ) {
     FloatingActionButton(
-        modifier = modifier.offset(y = 44.dp),
+        modifier = modifier,
         onClick = onClick,
         shape = CircleShape,
         containerColor = colors.secondary,
