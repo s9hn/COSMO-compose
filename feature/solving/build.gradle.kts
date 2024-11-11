@@ -11,7 +11,6 @@ android {
 }
 
 dependencies {
-    implementation(projects.domain.assesment)
     implementation(projects.domain.subject)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.kotlinx.immutable)
