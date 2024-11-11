@@ -3,6 +3,7 @@ package kw.team.solving
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
@@ -58,7 +59,7 @@ fun SolvingScreenContent(
     returnAnswer: () -> Unit,
 ) {
     Column(
-        modifier = Modifier.padding(horizontal = 20.dp),
+        modifier = Modifier.fillMaxSize().padding(horizontal = 20.dp),
         verticalArrangement = Arrangement.SpaceBetween,
     ) {
         Column {
@@ -89,6 +90,7 @@ fun SolvingScreenContent(
             onReturnClick = returnAnswer,
             onAiChatClick = showBottomSheet,
             isReturnClickable = assessment.options.selectedIndex != null,
+            modifier = Modifier.padding(bottom = 20.dp)
         )
     }
 }
