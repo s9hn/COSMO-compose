@@ -9,8 +9,9 @@ import kw.team.home.HomeRoute
 data object Home
 
 fun NavGraphBuilder.homeScreen(
+    homeNavigation: HomeNavigation,
 ) {
     composable<Home> {
-        HomeRoute()
+        HomeRoute(homeNavigation)
     }
 }

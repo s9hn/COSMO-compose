@@ -1,8 +1,9 @@
 package kw.team.home
 
 import androidx.compose.runtime.Composable
+import kw.team.home.navigation.HomeNavigation
 
 @Composable
-fun HomeRoute() {
-    HomeScreen()
+fun HomeRoute(homeNavigation: HomeNavigation) {
+    HomeScreen(homeNavigation)
 }

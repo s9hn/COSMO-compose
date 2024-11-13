@@ -1,5 +1,6 @@
 package kw.team.home.component
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -20,6 +21,7 @@ import kw.team.designsystem.theme.CosmoTheme
 import kw.team.designsystem.theme.CosmoTheme.colors
 import kw.team.designsystem.theme.CosmoTheme.typography
 import kw.team.home.model.SubjectUiModel
+import kw.team.subject.model.Subject
 import kw.team.subject.model.Subject.Algorithm
 import kw.team.subject.model.Subject.DataStructure
 import kw.team.subject.model.Subject.Database
@@ -29,6 +31,7 @@ import kw.team.subject.model.Subject.OperatingSystem
 @Composable
 internal fun HomeSubjectsGrid(
     subjects: List<SubjectUiModel>,
+    onClickSubject: (subject: Subject) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     LazyVerticalGrid(
@@ -55,7 +58,8 @@ internal fun HomeSubjectsGrid(
                         )
                     }
                 },
-                modifier = Modifier.size(size = 100.dp),
+                modifier = Modifier.size(size = 100.dp)
+                    .clickable { onClickSubject(subject.subject) },
             )
         }
     }
@@ -72,7 +76,8 @@ private fun HomeSubjectsGridPreview() {
                 SubjectUiModel(Algorithm),
                 SubjectUiModel(Network),
                 SubjectUiModel(Database),
-            )
+            ),
+            onClickSubject = {}
         )
     }
 }

@@ -27,9 +27,11 @@ include(
 include(
     ":feature:main",
     ":feature:home",
+    ":feature:solving"
 )
 
 // domain
 include(
     ":domain:subject",
+    ":domain:assesment"
 )
